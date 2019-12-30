@@ -12,9 +12,9 @@ void setup()
 void loop()
 {
   gas_value=analogRead(sensor_dx);
-  Serial.print("DX_");Serial.println(gas_value);
+  Serial.print("MQ5_DX: ");Serial.println(gas_value);
   delay(2000);
   gas_value=analogRead(sensor_sx);
-  Serial.print("SX_");Serial.println(gas_value);
+  Serial.print("MQ5_SX: ");Serial.println(gas_value);
   delay(2000);
 }
