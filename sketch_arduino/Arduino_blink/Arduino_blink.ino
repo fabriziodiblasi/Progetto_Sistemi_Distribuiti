@@ -27,9 +27,6 @@ void chiudi_valvola(){
 
 }
 
-void ready_valv_position(){
-  myservo.write(0);
-}
 
 void setup() {
   pinMode(LED_ROSSO_SX, OUTPUT);
@@ -38,7 +35,7 @@ void setup() {
   pinMode(LED_VERDE_DX, OUTPUT);
 
   myservo.attach(PIN_SERVO);
-  apri_valvola();
+  myservo.write(0);
 
 }
 
