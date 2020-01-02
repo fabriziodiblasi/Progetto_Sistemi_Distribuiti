@@ -1,11 +1,10 @@
-package java_proj.input_measurements;
+package java_proj.input_master;
 
 import java_proj.Globals;
 
 import java.io.InputStream;
 import lights.*;
 import lights.interfaces.*;
-import java.io.*;
 
 
 public class Measurements_Agent extends Thread {
@@ -25,7 +24,7 @@ public class Measurements_Agent extends Thread {
     }
 
     public void run(){
-        System.out.println("thread is running...");
+        System.out.println("Measurements thread is running...");
         String complete_str="";
         char  char_read;
         int result;
@@ -46,19 +45,12 @@ public class Measurements_Agent extends Thread {
                 * creo la tupla per la misurazione e la inserisco nello spazio di tuple.
                 * */
                 if (char_read == '_' && ( complete_str.charAt(0) == 'S' || complete_str.charAt(0) == 'D')){
-                    /*
-                    IField f1 = new Field().setValue("Paolo");
-                    IField f2 = new Field().setValue(new Integer(10));
-                    and then assembled in a tuple:
-                    ITuple t1 = new Tuple();
-                    t1.add(f1);
-                    t1.add(f2);
-                    * */
                     result = measureIntValue(complete_str);
                     if (result != -1) {
-                        System.out.println(complete_str.charAt(0) + " " + result);
+                        //System.out.println(complete_str.charAt(0) + " " + result);
                         //imposto i campi della tupla
-                        IField f1 = new Field().setValue("" + complete_str.charAt(0));
+                        char id_sensore = complete_str.charAt(0);
+                        IField f1 = new Field().setValue(id_sensore);
                         IField f2 = new Field().setValue(result);
                         //creo la tupla
                         ITuple t1 = new Tuple();
@@ -66,8 +58,17 @@ public class Measurements_Agent extends Thread {
                         t1.add(f1);
                         t1.add(f2);
                         //pubblico la tupla
-                        Globals.ts.outg(new ITuple[] = {t1, t2});
 
+//                      ITuple t2 = new Tuple().add(new Field().setValue('D'))
+//                                .add(new Field().setValue(20));
+                        System.out.println("pubblico la tupla");
+                        try{
+                            Globals.ts.out(t1);
+                        }catch(Throwable err){
+                            err.printStackTrace();
+                        }
+                        //Globals.ts.out(t1);
+                       // Globals.ts.out(t1);
                     }
                     //System.out.println(complete_str.trim());
                     complete_str="";
