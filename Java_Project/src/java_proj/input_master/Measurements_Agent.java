@@ -13,7 +13,7 @@ public class Measurements_Agent extends Thread {
         String str_num="";
         s=s.trim();
         for(int i = 0; i< s.length(); i++){
-            if(s.charAt(i)!='D' && s.charAt(i)!='S' && s.charAt(i)!='_'){
+            if(s.charAt(i)!=Globals.ID_DX && s.charAt(i)!=Globals.ID_SX && s.charAt(i)!=Globals.END_MSG){
                 str_num += s.charAt(i);
             }
         }
@@ -58,9 +58,6 @@ public class Measurements_Agent extends Thread {
                         t1.add(f1);
                         t1.add(f2);
                         //pubblico la tupla
-
-//                      ITuple t2 = new Tuple().add(new Field().setValue('D'))
-//                                .add(new Field().setValue(20));
                         System.out.println("pubblico la tupla");
                         try{
                             Globals.ts.out(t1);

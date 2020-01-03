@@ -4,6 +4,7 @@ import com.fazecast.jSerialComm.*;
 import java.io.IOException;
 import java_proj.input_master.Measurements_Agent;
 import java_proj.tuple_space_admin.Tuple_Space_Admin;
+import java_proj.output_master.Output_Agent;
 //import lights.interfaces.ITupleSpace;
 
 
@@ -25,9 +26,10 @@ public class Main_class {
 //        ITupleSpace ts = new TupleSpace("Authors");
         Measurements_Agent measure_th = new Measurements_Agent();
         Tuple_Space_Admin tuple_th = new Tuple_Space_Admin();
+        Output_Agent output_th =new Output_Agent();
         measure_th.start();
         tuple_th.start();
-
+        output_th.start();
 
     }
 }
