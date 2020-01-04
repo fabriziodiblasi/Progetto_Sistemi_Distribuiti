@@ -119,34 +119,38 @@ void loop() {
     stato = 1;
   }
   incomingByte = Serial.read();
-  if (stato == 1 && incomingByte !=""){
+  if (stato != 0 && incomingByte !=""){
     // put your main code here, to run repeatedly:
     
     //applico la decisione dello stato in base al carattere ricevuto dal bot
-    if (incomingByte == chiudi_sx) {
+    if (incomingByte == chiudi_sx && stato != 2) {
       //chiudo il servomotore e spengo il led verde a sinistra ed accendo il rosso
       chiudi_valvola();
       spegniVerdeSx();
       accendiRossoSx();
+      stato = 2;
     }
-    if (incomingByte == chiudi_dx) {
+    if (incomingByte == chiudi_dx && stato != 3) {
       //chiudo il servomotore e spengo il led verde a sinistra ed accendo il rosso
       chiudi_valvola();
       spegniVerdeDx();
       accendiRossoDx();
+      stato = 3;
     }
-    if (incomingByte == apri_sx) {
+    if (incomingByte == apri_sx && stato != 4) {
       //chiudo il servomotore e spengo il led verde a sinistra ed accendo il rosso
-      chiudi_valvola();
+      apri_valvola();
       spegniRossoSx();
       accendiVerdeSx();
+      stato =4;
     }
   
-    if (incomingByte == apri_dx) {
+    if (incomingByte == apri_dx && stato !=5) {
       //chiudo il servomotore e spengo il led verde a sinistra ed accendo il rosso
-      chiudi_valvola();
+      apri_valvola();
       spegniRossoDx();
       accendiVerdeDx();
+      stato=5;
     }
   }
 

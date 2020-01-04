@@ -18,18 +18,10 @@ public class Output_Agent extends Thread {
 
 
 
-    private static final  int sx_sv_open = 0; //: sx aperto & servomotore aperto
-    private static final  int dx_sv_open = 1; //: dx aperto & servomotore aperto
-    private static final  int all_close = 2; //: tutto chiuso
-    private static final  int sx_sv_close = 3; //: sx chiuso & servomotore chiuso
-    private static final  int dx_sv_close = 4; //: dx chiuso & servomotore chiuso
-    /*
-     * stato = 0 : sx aperto & servomotore aperto
-     * stato = 1 : dx aperto & servomotore aperto
-     * stato = 2 : chiuso tutto
-     * stato = 3 : sx chiuso & servomotore chiuso
-     * stato = 4 : dx chiuso & servomotore chiuso
-     * */
+    private static final  int sx_open = 0; //: sx aperto & servomotore aperto
+    private static final  int dx_open = 0; //: dx aperto & servomotore aperto
+    private static final  int sx_close = 1; //: sx chiuso & servomotore chiuso
+    private static final  int dx_close = 1; //: dx chiuso & servomotore chiuso
 
 
     private void serialWrite(char cmd) {
@@ -37,7 +29,7 @@ public class Output_Agent extends Thread {
 //        a=cmd;
         try{
             Globals.sp_output.getOutputStream().write(cmd);
-            System.out.println("Sent Command: " + cmd);
+            //System.out.println("Sent Command: " + cmd);
             Globals.sp_output.getOutputStream().flush();
         }catch (Throwable err){
             System.out.println("Impossibile scrivere sulla linea seriale");
@@ -48,14 +40,9 @@ public class Output_Agent extends Thread {
 
     public void run() {
         System.out.println("OutputAgent thread is running...");
-        int stato = -1;
-        /*
-         * stato = 0 : sx aperto & servomotore aperto
-         * stato = 1 : dx aperto & servomotore aperto
-         * stato = 2 : chiuso tutto
-         * stato = 3 : sx chiuso & servomotore chiuso
-         * stato = 4 : dx chiuso & servomotore chiuso
-         * */
+        int stato_sx, stato_dx;
+        stato_dx = stato_sx = sx_open;
+        int flag = 0;
 
         IField f1 = new Field().setType(Character.class);
         IField f2 = new Field().setType(Character.class);
@@ -67,37 +54,44 @@ public class Output_Agent extends Thread {
         p.add(f2);
         ITuple actual_tuple;
         while(true){
+
             try {
                 actual_tuple = Globals.ts.in(p);
                 id = actual_tuple.get(0).toString().charAt(0);
                 cmd = actual_tuple.get(1).toString().charAt(0);
                 System.out.println(actual_tuple + "  " + id + "  " + cmd);
+                if (flag == 0){
+                    //se è la prima volta che esegue
+                    stato_dx = stato_sx = sx_open;
+                    flag = 1;
+                }
 
-                if(id == Globals.ID_DX && cmd == Globals.OPEN && stato != dx_sv_open){
+                if(id == Globals.ID_DX && cmd == Globals.OPEN && stato_dx == dx_close){
                     /* se ho un messaggio per il sensore di destra e la soglia è inferiore
                      apro il servomotore ed il led di destra se esso non è già chiuso*/
-                    stato =dx_sv_open;
+                    stato_dx =dx_open;
                     serialWrite(apri_dx);
                 }
-
-                if(id == Globals.ID_SX && cmd == Globals.OPEN && stato != sx_sv_open){
-                    /* se ho un messaggio per il sensore di sinistra e la soglia è inferiore
-                     apro il servomotore ed il led di sinistra se esso non è già chiuso*/
-                    stato =sx_sv_open;
-                    serialWrite(apri_sx);
-                }
-
-                if(id == Globals.ID_DX && cmd == Globals.CLOSE && stato != dx_sv_close){
+                if(id == Globals.ID_DX && cmd == Globals.CLOSE && stato_dx ==dx_open){
                     /* se ho un messaggio per il sensore di destra e la soglia è maggiore
                      chiudo il servomotore ed il led di destra se esso non è già chiuso*/
-                    stato =dx_sv_close;
+                    stato_dx =dx_close;
                     serialWrite(chiudi_dx);
                 }
 
-                if(id == Globals.ID_SX && cmd == Globals.CLOSE && stato != sx_sv_close){
+
+
+                if(id == Globals.ID_SX && cmd == Globals.OPEN && stato_sx == sx_close){
+                    /* se ho un messaggio per il sensore di sinistra e la soglia è inferiore
+                     apro il servomotore ed il led di sinistra se esso non è già chiuso*/
+                    stato_sx =sx_open;
+                    serialWrite(apri_sx);
+                }
+
+                if(id == Globals.ID_SX && cmd == Globals.CLOSE && stato_sx == sx_open){
                     /* se ho un messaggio per il sensore di sinistra e la soglia è maggiore
                      chiudo il servomotore ed il led di sinistra se esso non è già chiuso*/
-                    stato =sx_sv_close;
+                    stato_sx =sx_close;
                     serialWrite(chiudi_sx);
                 }
 
