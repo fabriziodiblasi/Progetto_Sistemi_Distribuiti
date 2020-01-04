@@ -17,11 +17,23 @@ public class Main_class {
         Globals.sp_input.setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 0); // block until bytes can be written
 
         if (Globals.sp_input.openPort()) {
-            System.out.println("Port is open :)");
+            System.out.println("Input port is open :)");
         } else {
-            System.out.println("Failed to open port :(");
+            System.out.println("Failed to open the input port :(");
             return;
         }
+
+        Globals.sp_output = SerialPort.getCommPort("COM3"); // device name TODO: must be changed
+        Globals.sp_output.setComPortParameters(9600, 8, 1, 0); // default connection settings for Arduino
+        Globals.sp_output.setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 0); // block until bytes can be written
+
+        if (Globals.sp_output.openPort()) {
+            System.out.println("Output port is open :)");
+        } else {
+            System.out.println("Failed to open the output port :(");
+            return;
+        }
+
         //pagina 6 del pdf
 //        ITupleSpace ts = new TupleSpace("Authors");
         Measurements_Agent measure_th = new Measurements_Agent();

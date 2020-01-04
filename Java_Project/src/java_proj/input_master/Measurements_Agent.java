@@ -44,7 +44,7 @@ public class Measurements_Agent extends Thread {
                 * messaggio, allora:
                 * creo la tupla per la misurazione e la inserisco nello spazio di tuple.
                 * */
-                if (char_read == '_' && ( complete_str.charAt(0) == 'S' || complete_str.charAt(0) == 'D')){
+                if (char_read == '_' && ( complete_str.charAt(0) == Globals.ID_SX || complete_str.charAt(0) == Globals.ID_DX)){
                     result = measureIntValue(complete_str);
                     if (result != -1) {
                         //System.out.println(complete_str.charAt(0) + " " + result);
@@ -65,7 +65,7 @@ public class Measurements_Agent extends Thread {
                             err.printStackTrace();
                         }
                         //Globals.ts.out(t1);
-                       // Globals.ts.out(t1);
+                        // Globals.ts.out(t1);
                     }
                     //System.out.println(complete_str.trim());
                     complete_str="";
