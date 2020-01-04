@@ -80,6 +80,27 @@ public class Output_Agent extends Thread {
                     serialWrite(apri_dx);
                 }
 
+                if(id == Globals.ID_SX && cmd == Globals.OPEN && stato != sx_sv_open){
+                    /* se ho un messaggio per il sensore di sinistra e la soglia è inferiore
+                     apro il servomotore ed il led di sinistra se esso non è già chiuso*/
+                    stato =sx_sv_open;
+                    serialWrite(apri_sx);
+                }
+
+                if(id == Globals.ID_DX && cmd == Globals.CLOSE && stato != dx_sv_close){
+                    /* se ho un messaggio per il sensore di destra e la soglia è maggiore
+                     chiudo il servomotore ed il led di destra se esso non è già chiuso*/
+                    stato =dx_sv_close;
+                    serialWrite(chiudi_dx);
+                }
+
+                if(id == Globals.ID_SX && cmd == Globals.CLOSE && stato != sx_sv_close){
+                    /* se ho un messaggio per il sensore di sinistra e la soglia è maggiore
+                     chiudo il servomotore ed il led di sinistra se esso non è già chiuso*/
+                    stato =sx_sv_close;
+                    serialWrite(chiudi_sx);
+                }
+
             }catch (Throwable err) {
                 err.printStackTrace();
             }
