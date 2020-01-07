@@ -18,10 +18,10 @@ public class Output_Agent extends Thread {
 
 
 
-    private static final  int sx_open = 0; //: sx aperto & servomotore aperto
-    private static final  int dx_open = 0; //: dx aperto & servomotore aperto
-    private static final  int sx_close = 1; //: sx chiuso & servomotore chiuso
-    private static final  int dx_close = 1; //: dx chiuso & servomotore chiuso
+    private static final  int sx_open = 0; //flag sx aperto & servomotore aperto
+    private static final  int dx_open = 0; //flag dx aperto & servomotore aperto
+    private static final  int sx_close = 1; //flag sx chiuso & servomotore chiuso
+    private static final  int dx_close = 1; //flag dx chiuso & servomotore chiuso
 
 
     private void serialWrite(char cmd) {

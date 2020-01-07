@@ -17,8 +17,8 @@
 #include <MQUnifiedsensor.h>
 
 //Definitions
-#define PIN_DX A3 //Analog input 0 of your arduino
-#define PIN_SX A0 //Analog input 0 of your arduino
+#define PIN_DX A0 //Analog input 0 of your arduino
+#define PIN_SX A3 //Analog input 0 of your arduino
 
 #define type 5 //MQ5
 //#define calibration_button 13 //Pin to calibrate your sensor
@@ -83,6 +83,7 @@ void loop() {
   Serial.print("CH4: ");Serial.print(CH4,2);Serial.println(" ppm");
   Serial.print("CO: ");Serial.print(CO,2);Serial.println(" ppm");
   Serial.print("smoke: ");Serial.print(smoke,2);Serial.println(" ppm");
+  Serial.print("AnalogRead");Serial.print(analogRead(PIN_DX));Serial.println("");
   Serial.println("***************************");  
 
   delay(2000);
@@ -102,6 +103,7 @@ void loop() {
   Serial.print("CH4: ");Serial.print(CH4,2);Serial.println(" ppm");
   Serial.print("CO: ");Serial.print(CO,2);Serial.println(" ppm");
   Serial.print("smoke: ");Serial.print(smoke,2);Serial.println(" ppm");
+  Serial.print("AnalogRead : ");Serial.print(analogRead(PIN_SX));Serial.println("");
   Serial.println("***************************");  
 
   delay(2000);

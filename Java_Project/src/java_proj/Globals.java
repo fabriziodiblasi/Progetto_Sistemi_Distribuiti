@@ -11,7 +11,7 @@ public class Globals {
    public static SerialPort sp_output; // definizione della porta seriale di ingresso
 
    public static ITupleSpace ts = new TupleSpace("Tuple_space"); //spazio delle tuple
-   public static final int MAX_MEASURE_VALUE = 250; // massimo valore della misura di gas
+   public static final int MAX_MEASURE_VALUE = 20; // massimo valore della misura di gas
 
    public static final char ID_SX = 'S'; // id del sensore di sinistra
    public static final char ID_DX = 'D'; // id del sensore di destra
