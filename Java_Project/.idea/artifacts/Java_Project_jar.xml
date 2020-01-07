@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Java_Project:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Java_Project_jar</output-path>
+    <root id="archive" name="Java_Project.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/out/Artifacts/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="Java_Project" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dipendenze_Esterne/lights-ext.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dipendenze_Esterne/lights-core.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dipendenze_Esterne/jSerialComm-2.5.3.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
